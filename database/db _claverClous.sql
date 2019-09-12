@@ -32,3 +32,18 @@ ALTER TABLE links
 
 ALTER TABLE links
     MODIFY id INT(11)NOT NULL AUTO_INCREMENT, AUTO_INCREMENT =2;
+
+
+    CREATE TABLE  img (
+    id INT(11) NOT NULL,
+    title VARCHAR(150) NOT NULL,    
+    file VARCHAR(250) NOT NULL,    
+    user_id INT,
+    create_at TIMESTAMP NOT NULL DEFAULT current_timestamp,
+    CONSTRAINT file_user FOREIGN KEY (user_id) REFERENCES users(id)
+);
+ALTER TABLE img 
+    ADD PRIMARY KEY (id);
+
+ALTER TABLE img
+    MODIFY id INT NOT NULL AUTO_INCREMENT;

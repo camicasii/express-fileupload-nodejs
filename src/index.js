@@ -7,6 +7,8 @@ const session = require('express-session')//controla la sesiones
 const mysqlStore = require('express-mysql-session');//es usada para crear una coneccion con la base de datos
 const {database} =require('./keys');
 const passport = require('passport');
+const {router}= require('./test/upfile');
+const fileUpload = require('express-fileupload')
 
 //inicialization
 const app = express();
@@ -28,9 +30,9 @@ app.engine('.hbs',exphbs({
 app.set('view engine','.hbs');//tener esta liena en cuenta es view no views todo puede desconfigurarce por esta lienea
 
 //middleware
-console.log(__dirname +'/public');
+//console.log(__dirname +'/public');
 
-app.use('/',express.static('/home/jhonattan/Desktop/MegaProyectoNode/src/pubic'));// agrega el directorio estatico
+app.use("/",express.static(__dirname + '/pubic'));// agrega el directorio estatico
 app.use(session({
     secret:"JJRD",
     resave:false,
@@ -42,10 +44,19 @@ app.use(flash());
 app.use(morgan('dev'));
 app.use(express.urlencoded( {extended: false}));
 app.use(express.json());
+
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(fileUpload({
+    
+        useTempFiles  : true, 
+        tempFileDir  : 'src/public/tmp/' ,
+        
+    
+}))
 
-
+//declaramos directorio upFile
+global.upfile_ = __dirname +'/public/upFile/';
 
 
 //global Variables 
@@ -53,7 +64,7 @@ app.use(passport.session());
 app.use((req,res,next)=>{
     app.locals.success = req.flash('success')
     app.locals.message = req.flash('message')
-    app.locals.user = req.user;
+    app.locals.user = req.user;    
     next();
 })
 
@@ -61,6 +72,7 @@ app.use((req,res,next)=>{
 app.use(require('./routes/'));
 app.use(require('./routes/authentication'));
 app.use('/links', require('./routes/links'));
+app.use('/upfile',router);
 
 //Public
 

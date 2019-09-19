@@ -7,10 +7,23 @@
                     
                     <form action="/upfile/a" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
-                            <input type="text" name="title" class="form-control" placeholder="Title" autofocus>
+                            <label for="">Referencia de pago</label>
+                            <input type='text' name="pagoref" class="form-control" placeholder="Referencia de pago" autofocus>
                         </div>
                         <div class="form-group">
-                            <input type="file" name="file" id="" class="btn btn-success btn-block" value="save">
+                            <label for="">Fecha de pago</label>
+                            <input type='date' name="pagoDate" class="form-control" >
+                        </div>
+                        <!--div class="form-group">
+                            
+                            <input type='text' name="title" class="form-control" placeholder="Title" autofocus>
+
+                            class="btn btn-success btn-block"
+                        </div-->
+                        <div class="form-group">
+                            <label for="ffile" class="btn btn-danger btn-block">imagen png o jpg</label>
+                            <input type="file" name="file" pattern="*.png"  id="ffile"  value="save"
+                            placeholder="Title" >
                             
                         </div>
                         <div class="form-group">

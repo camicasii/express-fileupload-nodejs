@@ -9,6 +9,9 @@ const {database} =require('./keys');
 const passport = require('passport');
 const {router}= require('./test/upfile');
 const fileUpload = require('express-fileupload')
+const bodyParser =  require('body-parser');
+const niv = require('node-input-validator');
+
 
 //inicialization
 const app = express();
@@ -44,6 +47,8 @@ app.use(flash());
 app.use(morgan('dev'));
 app.use(express.urlencoded( {extended: false}));
 app.use(express.json());
+app.use(bodyParser.raw());
+
 
 app.use(passport.initialize());
 app.use(passport.session());
